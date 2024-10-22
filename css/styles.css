@@ -240,116 +240,6 @@ svg {
 
 /* --------- MEDIA QUERIES --------- */
 
-/* Medium <= 800px */
-
-@media screen and (max-width: 800px) {
-    .header {
-        display: none;
-    }
-    .grid-container {
-        grid-template-columns: 1fr;
-        grid-template-rows: 0.5fr 0.5fr 80px;
-        grid-template-areas:
-            "map"
-            "card"
-            "sidebar";
-        height:100vh;
-    }
-
-    #map-container {
-        grid-area: "map";
-        grid-column:1;
-        grid-row: 1;
-    }
-
-    svg {
-        width:10;
-    }
-    .plan-card {
-        grid-area: "card";
-        grid-column:1;
-        grid-row: 2;
-        display:grid;
-        width:100%;
-        flex-direction:row;
-    }
-
-    #sidebar {
-        grid-area: "sidebar";
-        grid-row: 3;
-        display:grid;
-        grid-template-columns:0.2fr 0.8fr;
-        width:100%;
-        height:flex;
-    }
-
-    .sidebar-title {
-        justify-content: center;
-        padding: 0;
-    }
-
-    .sidebar-title > span {
-        display: flex;
-    }
-
-    .sidebar-brand {
-        justify-content: center;
-        font-size:12px;
-        padding: 0;
-    }
-
-    .sidebar-brand > span {
-        display:none;
-    }
-
-    .sidebar-list {
-        display:flex;
-        font-size:12px;
-        font-weight:100;
-    }
-
-    .sidebar-list-item {
-        padding: 3px;
-        display:flex;
-        flex-direction:column;
-    }
-
-    .card-inner {
-        padding: 2px 2px 2px 5px;
-        margin: 0 0 5px 0;
-    }
-
-    .card-inner-title {
-        font-size:12px;
-    }
-
-    .card-inner select {
-        font-size:12px;
-    }
-
-    .card-inner input {
-        font-size:12px;
-    }
-}
-
-
-/* Small <= 768px */
-/* 
-@media screen and (max-width: 768px) {
-    .main-cards {
-        grid-template-columns: 1fr;
-        gap: 10px;
-        margin-bottom: 0;
-    }
-}
-
-/* Extra Small <= 576px */
-/* 
-@media screen and (max-width: 576px) {
-    .header-left {
-        display: none;
-    }
-} */
 @media screen and (max-width: 800px) {
     .header {
         display: none;
@@ -373,12 +263,22 @@ svg {
         width:15px;
         height:15px;
         display:block;
-        background-color:none;
+        background-color:#ffffff;
         color:#666666;
     }
 
     .cat, .place {
         font-size:12px;
+    }
+
+    .card-item {
+        width: 100%;
+        height:25px;
+        flex-direction: column;
+        display:grid;
+        grid-template-columns: 0.2fr 0.6fr 0.2fr;
+        grid-template-areas: cat place deleteBtn;
+        margin-bottom: 0px;
     }
 
     .delete-btn {
@@ -466,22 +366,3 @@ svg {
         font-size:12px;
     }
 }
-
-
-/* Small <= 768px */
-/* 
-@media screen and (max-width: 768px) {
-    .main-cards {
-        grid-template-columns: 1fr;
-        gap: 10px;
-        margin-bottom: 0;
-    }
-}
-
-/* Extra Small <= 576px */
-/* 
-@media screen and (max-width: 576px) {
-    .header-left {
-        display: none;
-    }
-} */
