@@ -164,7 +164,7 @@ body {
     grid-template-areas: cat place addBtn;
 }
 
-.card-add show{
+.card-add.show{
     display:flex;
     grid-template-columns: 0.2fr 0.6fr 0.2fr;
     grid-template-areas: cat place addBtn;
@@ -176,7 +176,7 @@ body {
     flex-direction: column;
 }
 
-.card-inner-list show {
+.card-inner-list.show {
     height:100%;
     width: 100%;
     display:grid;
@@ -363,7 +363,7 @@ svg {
     }
 
     
-    .card-add show{
+    .card-add.show{
         display:flex;
         grid-template-columns: 0.2fr 0.6fr 0.2fr;
         grid-template-areas: cat place addBtn;
