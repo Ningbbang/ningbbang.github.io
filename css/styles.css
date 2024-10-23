@@ -171,7 +171,7 @@ body {
 }
 
 .card-inner-list {
-    display:grid;
+    display:none;
     grid-template-columns: 1fr;
     flex-direction: column;
 }
