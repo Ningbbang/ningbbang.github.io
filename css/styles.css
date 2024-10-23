@@ -254,10 +254,6 @@ svg {
         height:100vh;
     }
 
-    .card-add {
-        display:grid;
-    }
-
     .add-btn {
         justify-content: center;
         width:15px;
@@ -357,7 +353,11 @@ svg {
     .card-inner-title {
         font-size:12px;
     }
-
+    
+    .card-add {
+        display:none;
+    }
+    
     .card-inner select {
         font-size:12px;
     }
