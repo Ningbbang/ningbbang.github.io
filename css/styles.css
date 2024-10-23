@@ -359,6 +359,13 @@ svg {
     .card-add {
         display:none;
     }
+
+    
+    .card-add .show{
+        display:flex;
+        grid-template-columns: 0.2fr 0.6fr 0.2fr;
+        grid-template-areas: cat place addBtn;
+    }
     
     .card-inner select {
         font-size:12px;
