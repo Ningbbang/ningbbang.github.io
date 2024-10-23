@@ -159,7 +159,9 @@ body {
 }
 
 .card-add {
-    display:none;
+    display:grid;
+    width: 0;
+    height: 0;
     grid-template-columns: 0.2fr 0.6fr 0.2fr;
     grid-template-areas: cat place addBtn;
 }
@@ -171,7 +173,9 @@ body {
 }
 
 .card-inner-list {
-    display:none;
+    display:grid;
+    width: 0;
+    height: 0;
     grid-template-columns: 1fr;
     flex-direction: column;
 }
@@ -357,7 +361,9 @@ svg {
     }
     
     .card-add {
-        display:none;
+        display:grid;
+        width:0;
+        height:0;
         grid-template-columns: 0.2fr 0.6fr 0.2fr;
         grid-template-areas: cat place addBtn;
     }
