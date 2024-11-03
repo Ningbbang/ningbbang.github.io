@@ -12,10 +12,10 @@ app.use(cors()); // To allow cross-origin requests if your frontend is hosted el
 // MySQL connection setup
 const connection = mysql.createConnection({
     host: 'database-1.c50ki8ii627f.ap-southeast-2.rds.amazonaws.com',
-    port: "3306",
+    port: '3306',
     user: 'admin',
     password: 'rlaqhs135',
-    database: 'trip_plan'
+    database: 'trip'
 });
 
 app.use(express.static(path.join(__dirname, '')));  // Serve static files from 'public' folder
