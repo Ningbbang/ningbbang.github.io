@@ -57,7 +57,7 @@ function addItem(item) {
     item.parentElement.querySelector(".place").value = "";
 
     // Save the item to the server
-    fetch('http://localhost:3000/items', {
+    fetch('https://port-0-ningbbang-m31kz4ncdbfb44cf.sel4.cloudtype.app/items', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -72,7 +72,7 @@ function deleteItem(item, id) {
     item.parentElement.parentElement.remove(); // Remove from UI
 
     // Remove from server
-    fetch(`http://localhost:3000/items/${id}`, {
+    fetch(`https://port-0-ningbbang-m31kz4ncdbfb44cf.sel4.cloudtype.app/items/${id}`, {
         method: 'DELETE'
     }).then(response => response.json())
       .then(data => console.log('Item deleted', data))
@@ -81,7 +81,7 @@ function deleteItem(item, id) {
 
 
 document.addEventListener('DOMContentLoaded', function() {
-    fetch('http://localhost:3000/items')
+    fetch('https://port-0-ningbbang-m31kz4ncdbfb44cf.sel4.cloudtype.app/items')
         .then(response => response.json())
         .then(items => {
             items.forEach(item => {
