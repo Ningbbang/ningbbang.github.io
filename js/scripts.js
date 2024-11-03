@@ -35,13 +35,13 @@ function addMarker(prop) {
     });
 }
 
-function addItem(buttonElement) {
+function addItem(item) {
     // Get the button ID or a unique identifier from the button
-    const buttonId = buttonElement.id || buttonElement.getAttribute('data-id');
+    const buttonId = item.id || item.getAttribute('id');
 
     // Gather the necessary data for the item
-    const category = document.getElementById("category-input").value;
-    const place = document.getElementById("place-input").value;
+    const category = item.parentElement.querySelector("select").value;
+    const place = item.parentElement.querySelector(".place").value;
 
     // Construct the item object to send to the backend, including buttonId
     const itemData = {

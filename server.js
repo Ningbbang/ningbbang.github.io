@@ -5,7 +5,6 @@ const path = require('path');
 const aws = require('aws-sdk');
 
 const cors = require('cors');
-app.use(cors({ origin: 'https://port-0-ningbbang-m31kz4ncdbfb44cf.sel4.cloudtype.app/' }));
 
 const app = express();
 app.use(bodyParser.json());
