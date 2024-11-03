@@ -35,37 +35,49 @@ function addMarker(prop) {
     });
 }
 
-function addItem(item) {
-    let category = item.parentElement.querySelector("select").value;
-    let placeName = item.parentElement.querySelector(".place").value;
+function addItem(buttonElement) {
+    // Get the button ID or a unique identifier from the button
+    const buttonId = buttonElement.id || buttonElement.getAttribute('data-id');
 
-    // Add the item to the UI
-    item.parentElement.parentElement.querySelector(".card-inner-list").innerHTML += `
-    <div class="card-item">
-        <span class="cat">${category}</span>
-        <span class="place">${placeName}</span>
-        <span class="add-btn">
-            <button class="delete-btn" onclick="deleteItem(this)">
-                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
-                    <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/>
-                </svg>
-            </button>
-        </span>
-    </div>`;
-    
-    // Clear the input fields
-    item.parentElement.querySelector(".place").value = "";
+    // Gather the necessary data for the item
+    const category = document.getElementById("category-input").value;
+    const place = document.getElementById("place-input").value;
 
-    // Save the item to the server
-    fetch('https://port-0-ningbbang-m31kz4ncdbfb44cf.sel4.cloudtype.app/items', {
+    // Construct the item object to send to the backend, including buttonId
+    const itemData = {
+        category: category,
+        place: place,
+        button_id: buttonId  // Include the button ID here
+    };
+
+    // Send the data to the backend
+    fetch('https://port-0-ningbbang-m31kz4ncdbfb44cf.sel4.cloudtype.app/add-item', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ category, place: placeName })
-    }).then(response => response.json())
-      .then(data => console.log('Item saved', data))
-      .catch(error => console.error('Error saving item:', error));
+        body: JSON.stringify(itemData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log("Item added:", data);
+
+        // Optionally: Append the item to the appropriate card-inner-list without reloading
+        const listContainer = document.querySelector(`#${buttonId} .card-inner-list`);
+        if (listContainer) {
+            listContainer.innerHTML += `
+            <div class="card-item" data-id="${data.id}">
+                <span class="cat">${data.category}</span>
+                <span class="place">${data.place}</span>
+                <span class="add-btn">
+                    <button class="delete-btn" onclick="deleteItem(this, ${data.id})">
+                        <!-- SVG code here -->
+                    </button>
+                </span>
+            </div>`;
+        }
+    })
+    .catch(error => console.error('Error adding item:', error));
 }
 
 function deleteItem(item, id) {
@@ -85,18 +97,20 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(items => {
             items.forEach(item => {
-                document.querySelector(".card-inner-list").innerHTML += `
-                <div class="card-item" data-id="${item.id}">
-                    <span class="cat">${item.category}</span>
-                    <span class="place">${item.place}</span>
-                    <span class="add-btn">
-                        <button class="delete-btn" onclick="deleteItem(this, ${item.id})">
-                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
-                                <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/>
-                            </svg>
-                        </button>
-                    </span>
-                </div>`;
+                // Use the button ID or another identifier to find the correct list
+                const listContainer = document.querySelector(`#${item.button_id} .card-inner-list`);
+                if (listContainer) {
+                    listContainer.innerHTML += `
+                    <div class="card-item" data-id="${item.id}">
+                        <span class="cat">${item.category}</span>
+                        <span class="place">${item.place}</span>
+                        <span class="add-btn">
+                            <button class="delete-btn" onclick="deleteItem(this, ${item.id})">
+                                <!-- SVG code here -->
+                            </button>
+                        </span>
+                    </div>`;
+                }
             });
         })
         .catch(error => console.error('Error loading items:', error));

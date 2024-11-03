@@ -1,9 +1,11 @@
 const express = require('express');
 const mysql = require('mysql');
 const bodyParser = require('body-parser');
-const cors = require('cors');
 const path = require('path');
 const aws = require('aws-sdk');
+
+const cors = require('cors');
+app.use(cors({ origin: 'https://port-0-ningbbang-m31kz4ncdbfb44cf.sel4.cloudtype.app/' }));
 
 const app = express();
 app.use(bodyParser.json());
@@ -40,15 +42,23 @@ app.get('/items', (req, res) => {
 });
 
 // Endpoint to add a new item
-app.post('/items', (req, res) => {
-    const { category, place } = req.body;
-    const query = 'INSERT INTO trip_plan (category, place) VALUES (?, ?)';
-    connection.query(query, [category, place], (err, result) => {
-        if (err) {
-            res.status(500).send(err);
-            return;
+app.post('/add-item', (req, res) => {
+    const { category, place, button_id } = req.body;
+
+    // Add SQL logic to insert the new item with button_id
+    const query = `INSERT INTO items (category, place, button_id) VALUES (?, ?, ?)`;
+    db.query(query, [category, place, button_id], (error, results) => {
+        if (error) {
+            console.error("Error adding item:", error);
+            res.status(500).send("Error adding item");
+        } else {
+            res.json({
+                id: results.insertId,  // Include the new item ID in the response
+                category: category,
+                place: place,
+                button_id: button_id
+            });
         }
-        res.status(200).send({ message: 'Item added', id: result.insertId });
     });
 });
 
