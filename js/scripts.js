@@ -51,7 +51,7 @@ function addItem(item) {
     };
 
     // Send the data to the backend
-    fetch('https://port-0-ningbbang-m31kz4ncdbfb44cf.sel4.cloudtype.app/add-item', {
+    fetch('172.31.10.220', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -84,7 +84,7 @@ function deleteItem(item, id) {
     item.parentElement.parentElement.remove(); // Remove from UI
 
     // Remove from server
-    fetch(`https://port-0-ningbbang-m31kz4ncdbfb44cf.sel4.cloudtype.app/items/${id}`, {
+    fetch(`172.31.10.220/items/${id}`, {
         method: 'DELETE'
     }).then(response => response.json())
       .then(data => console.log('Item deleted', data))
@@ -93,7 +93,7 @@ function deleteItem(item, id) {
 
 
 document.addEventListener('DOMContentLoaded', function() {
-    fetch('https://port-0-ningbbang-m31kz4ncdbfb44cf.sel4.cloudtype.app/items')
+    fetch('172.31.10.220/items')
         .then(response => response.json())
         .then(items => {
             items.forEach(item => {
