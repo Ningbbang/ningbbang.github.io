@@ -51,7 +51,7 @@ function addItem(item) {
     };
 
     // Send the data to the backend
-    fetch('172.31.10.220', {
+    fetch('/add-item', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -62,29 +62,33 @@ function addItem(item) {
     .then(data => {
         console.log("Item added:", data);
 
-        // Optionally: Append the item to the appropriate card-inner-list without reloading
-        const listContainer = document.querySelector(`#${buttonId} .card-inner-list`);
-        if (listContainer) {
-            listContainer.innerHTML += `
-            <div class="card-item" data-id="${data.id}">
-                <span class="cat">${data.category}</span>
-                <span class="place">${data.place}</span>
-                <span class="add-btn">
-                    <button class="delete-btn" onclick="deleteItem(this, ${data.id})">
-                        <!-- SVG code here -->
-                    </button>
-                </span>
-            </div>`;
-        }
+    // Optionally: Append the item to the appropriate card-inner-list without reloading
+    // const listContainer = document.querySelector(`#${buttonId} .card-inner-list`);
+    const listContainer = document.querySelector('div.card-inner > div.card-inner-list.show');
+    console.log(listContainer)
+    if (listContainer) {
+        listContainer.innerHTML += `
+        <div class="card-item" data-id="${data.id}">
+            <span class="cat">${data.category}</span>
+            <span class="place">${data.place}</span>
+            <span class="add-btn">
+                <button class="delete-btn" onclick="deleteItem(this, ${data.id})">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
+                </button>
+            </span>
+        </div>`;
+    }
     })
     .catch(error => console.error('Error adding item:', error));
-}
+
+    
+}   
 
 function deleteItem(item, id) {
     item.parentElement.parentElement.remove(); // Remove from UI
 
     // Remove from server
-    fetch(`172.31.10.220/items/${id}`, {
+    fetch(`/items/${id}`, {
         method: 'DELETE'
     }).then(response => response.json())
       .then(data => console.log('Item deleted', data))
@@ -93,7 +97,7 @@ function deleteItem(item, id) {
 
 
 document.addEventListener('DOMContentLoaded', function() {
-    fetch('172.31.10.220/items')
+    fetch('/items')
         .then(response => response.json())
         .then(items => {
             items.forEach(item => {

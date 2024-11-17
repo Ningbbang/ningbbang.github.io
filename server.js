@@ -45,8 +45,8 @@ app.post('/add-item', (req, res) => {
     const { category, place, button_id } = req.body;
 
     // Add SQL logic to insert the new item with button_id
-    const query = `INSERT INTO items (category, place, button_id) VALUES (?, ?, ?)`;
-    db.query(query, [category, place, button_id], (error, results) => {
+    const query = `INSERT INTO trip_plan (category, place, button_id) VALUES (?, ?, ?)`;
+    connection.query(query, [category, place, button_id], (error, results) => {
         if (error) {
             console.error("Error adding item:", error);
             res.status(500).send("Error adding item");
@@ -80,6 +80,6 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '', 'index.html'));
 });
 
-app.listen(443, () => {
-    console.log('Server running on port 443');
+app.listen(8080, () => {
+    console.log('Server running on port 8080');
 });
